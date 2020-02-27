@@ -11,7 +11,7 @@ from multiprocessing import cpu_count
 
 import tagging
 import transcode
-import redactedapi
+import dicmusicapi
 from _version import __version__
 
 
@@ -29,7 +29,7 @@ def create_description(torrent, flac_dir, format, permalink):
         '',
         '[code]%s[/code]' % ' | '.join(cmds),
         '',
-        'Created using [url=https://dicmusic.club/forums.php?action=viewthread&threadid=35524]REDBetter (iw00t fork)[/url]'
+        'Created using [url=https://github.com/scatking/DICBetter]DICBetter (scatowl fork)[/url]'
         ''
         ]
     return description
@@ -43,9 +43,9 @@ def formats_needed(group, torrent, supported_formats):
 
     others = filter(same_group, group['torrents'])
     current_formats = set((t['format'], t['encoding']) for t in others)
-    missing_formats = [format for format, details in [(f, redactedapi.formats[f]) for f in supported_formats]\
+    missing_formats = [format for format, details in [(f, dicmusicapi.formats[f]) for f in supported_formats]\
                            if (details['format'], details['encoding']) not in current_formats]
-    allowed_formats = redactedapi.allowed_transcodes(torrent)
+    allowed_formats = dicmusicapi.allowed_transcodes(torrent)
     return [format for format in missing_formats if format in allowed_formats]
 
 def border_msg(msg):
@@ -59,15 +59,15 @@ def border_msg(msg):
     return "+{dash}+\n{msg}\n+{dash}+".format(dash=dash,msg=msg)
 
 def main():
-    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter, prog='redactedbetter')
+    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter, prog='dicmusicbetter')
     parser.add_argument('release_urls', nargs='*', help='the URL where the release is located')
     parser.add_argument('-s', '--single', action='store_true', help='only add one format per release (useful for getting unique groups)')
     parser.add_argument('-j', '--threads', type=int, help='number of threads to use when transcoding',
             default=max(cpu_count() - 1, 1))
     parser.add_argument('--config', help='the location of the configuration file', \
-            default=os.path.expanduser('~/.redactedbetter/config'))
+            default=os.path.expanduser('~/.dicmusicbetter/config'))
     parser.add_argument('--cache', help='the location of the cache', \
-            default=os.path.expanduser('~/.redactedbetter/cache'))
+            default=os.path.expanduser('~/.dicmusicbetter/cache'))
     parser.add_argument('-U', '--no-upload', action='store_true', help='don\'t upload new torrents (in case you want to do it manually)')
     parser.add_argument('-E', '--no-24bit-edit', action='store_true', help='don\'t try to edit 24-bit torrents mistakenly labeled as 16-bit')
     parser.add_argument('--version', action='version', version='%(prog)s ' + __version__)
@@ -89,7 +89,7 @@ def main():
         config.set('redacted', 'output_dir', '')
         config.set('redacted', 'torrent_dir', '')
         config.set('redacted', 'formats', 'flac, v0, 320')
-        config.set('redacted', 'media', ', '.join(redactedapi.lossless_media))
+        config.set('redacted', 'media', ', '.join(dicmusicapi.lossless_media))
         config.set('redacted', '24bit_behaviour','0')
         config.set('redacted', 'piece_length', '18')
         config.write(open(args.config, 'w'))
@@ -116,20 +116,20 @@ def main():
         try:
             media_config = config.get('redacted', 'media')
             if not media_config:
-                supported_media = redactedapi.lossless_media
+                supported_media = dicmusicapi.lossless_media
             else:
                 supported_media = set([medium.strip().lower() for medium in media_config.split(',')])
-                if not supported_media.issubset(set(redactedapi.lossless_media)):
-                    print 'Unsupported media type "%s", edit your configuration' % (supported_media - redactedapi.lossless_media).pop()
-                    print 'Supported types are:', ', '.join(redactedapi.lossless_media)
+                if not supported_media.issubset(set(dicmusicapi.lossless_media)):
+                    print 'Unsupported media type "%s", edit your configuration' % (supported_media - dicmusicapi.lossless_media).pop()
+                    print 'Supported types are:', ', '.join(dicmusicapi.lossless_media)
                     sys.exit(2)
         except ConfigParser.NoOptionError:
-            supported_media = redactedapi.lossless_media
+            supported_media = dicmusicapi.lossless_media
 
     upload_torrent = not args.no_upload
 
-    print 'Logging in to RED...'
-    api = redactedapi.RedactedAPI(username, password, session_cookie)
+    print 'Logging in to DIC...'
+    api = dicmusicapi.RedactedAPI(username, password, session_cookie)
 
     try:
         seen = pickle.load(open(args.cache))
@@ -161,7 +161,7 @@ def main():
                 year = str(group['group']['year'])
 
             releaseartist = "Release artist(s): %s" % artist
-            releasename   = "Release name     : %s" % redactedapi.unescape(group['group']['name'])
+            releasename   = "Release name     : %s" % dicmusicapi.unescape(group['group']['name'])
             releaseyear   = "Release year     : %s" % year
             releaseurl    = "Release URL      : %s" % api.release_url(group, torrent)
 
@@ -169,17 +169,17 @@ def main():
             print(border_msg(releaseartist.encode("utf-8") + "\n" + releasename.encode("utf-8") + "\n" + releaseyear.encode("utf-8") + "\n" + releaseurl.encode("utf-8")))
 
             if not torrent['filePath']:
-                flac_file = os.path.join(data_dir, redactedapi.unescape(torrent['fileList']).split('{{{')[0])
+                flac_file = os.path.join(data_dir, dicmusicapi.unescape(torrent['fileList']).split('{{{')[0])
                 if not os.path.exists(flac_file):
                     print "Path not found - skipping: %s" % flac_file
                     continue
                 flac_dir = os.path.join(data_dir, "%s (%s) [FLAC]" % (
-                redactedapi.unescape(group['group']['name']), group['group']['year']))
+                    dicmusicapi.unescape(group['group']['name']), group['group']['year']))
                 if not os.path.exists(flac_dir):
                     os.makedirs(flac_dir)
                 shutil.copy(flac_file, flac_dir)
             else:
-                flac_dir = os.path.join(data_dir, redactedapi.unescape(torrent['filePath']))
+                flac_dir = os.path.join(data_dir, dicmusicapi.unescape(torrent['filePath']))
 
             flac_dir = flac_dir.encode(sys.getfilesystemencoding())
             if int(do_24_bit):

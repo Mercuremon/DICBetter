@@ -74,7 +74,7 @@ class RedactedAPI:
         self.authkey = None
         self.passkey = None
         self.userid = None
-        self.tracker = "https://flacsfor.me/"
+        self.tracker = "https://tracker.dicmusic.club/"
         self.last_request = time.time()
         self.rate_limit = 2.0 # seconds between requests
         self._login()

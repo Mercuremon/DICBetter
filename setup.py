@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 '''
-Installer script for redactedbetter.
+Installer script for dicmusicbetter.
 '''
 
 from setuptools import setup
@@ -16,7 +16,7 @@ else:
     raise RuntimeError("Unable to find version string in %s." % (VERSIONFILE,))
 
 setup(
-    name = "redactedbetter",
+    name = "dicmusicbetter",
     description = "Automatically transcode and upload FLACs on redacted.ch.",
     version = verstr,
     url = 'https://github.com/Mechazawa/pthbetter-crawler',
@@ -26,7 +26,7 @@ setup(
         'transcode',
         'redactedapi'
     ],
-    scripts = ['redactedbetter'],
+    scripts = ['dicmusicbetter'],
     install_requires = [
         'mutagen>=1.20',
         'mechanize==0.2.5',
