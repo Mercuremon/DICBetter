@@ -24,7 +24,7 @@ setup(
         '_version',
         'tagging',
         'transcode',
-        'redactedapi'
+        'dicmusicapi'
     ],
     scripts = ['dicmusicbetter'],
     install_requires = [
