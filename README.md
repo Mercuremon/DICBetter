@@ -1,4 +1,4 @@
-![REDBetter Logo](logo.jpg)
+![DICBetter Logo](logo.jpg)
 
 ## 简介
 
