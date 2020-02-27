@@ -28,7 +28,7 @@ Python 官方网站在 [这里](https://www.python.org/downloads/)
 #### 2. 安装 `mktorrent`
 
 必须使用源码安装`mktorrent` 而不能从程序管理器中安装。
-对于Linux系统，可以采取在一个临时目录采用以下命令安装
+对于Linux系统，可以在一个临时目录采用以下命令安装
 
 ~~~~
 $> git clone git@github.com:Rudde/mktorrent.git
