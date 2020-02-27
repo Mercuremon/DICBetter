@@ -90,7 +90,7 @@ class RedactedAPI:
             self._login_username_password()
 
     def _login_cookie(self):
-        mainpage = 'https://redacted.ch/';
+        mainpage = 'https://dicmusic.club/';
         cookiedict = {"session": self.session_cookie}
         cookies = requests.utils.cookiejar_from_dict(cookiedict)
 
@@ -110,7 +110,7 @@ class RedactedAPI:
         if not self.username or self.username == "":
             print "WARNING: username authentication attempted, but username not set, skipping."
             raise LoginException
-        loginpage = 'https://redacted.ch/login.php'
+        loginpage = 'https://dicmusic.club/login.php'
         data = {'username': self.username,
                 'password': self.password}
         r = self.session.post(loginpage, data=data)
@@ -129,14 +129,14 @@ class RedactedAPI:
             raise LoginException
 
     def logout(self):
-        self.session.get("https://redacted.ch/logout.php?auth=%s" % self.authkey)
+        self.session.get("https://dicmusic.club/logout.php?auth=%s" % self.authkey)
 
     def request(self, action, **kwargs):
         '''Makes an AJAX request at a given action page'''
         while time.time() - self.last_request < self.rate_limit:
             time.sleep(0.1)
 
-        ajaxpage = 'https://redacted.ch/ajax.php'
+        ajaxpage = 'https://dicmusic.club/ajax.php'
         params = {'action': action}
         if self.authkey:
             params['auth'] = self.authkey
@@ -156,7 +156,7 @@ class RedactedAPI:
         while time.time() - self.last_request < self.rate_limit:
             time.sleep(0.1)
 
-        ajaxpage = 'https://redacted.ch/' + action
+        ajaxpage = 'https://dicmusic.club/' + action
         if self.authkey:
             kwargs['auth'] = self.authkey
         r = self.session.get(ajaxpage, params=kwargs, allow_redirects=False)
@@ -199,7 +199,7 @@ class RedactedAPI:
         else:
             media_params = ['&media=%s' % media_search_map[m] for m in media]
 
-        url = 'https://redacted.ch/torrents.php?type=snatched&userid=%s&format=FLAC' % self.userid
+        url = 'https://dicmusic.club/torrents.php?type=snatched&userid=%s&format=FLAC' % self.userid
         for mp in media_params:
             page = 1
             done = False
@@ -213,7 +213,7 @@ class RedactedAPI:
                 page += 1
 
     def upload(self, group, torrent, new_torrent, format, description=[]):
-        url = "https://redacted.ch/upload.php?groupid=%s" % group['group']['id']
+        url = "https://dicmusic.club/upload.php?groupid=%s" % group['group']['id']
         response = self.session.get(url)
         forms = mechanize.ParseFile(StringIO(response.text.encode('utf-8')), url)
         form = forms[-1]
@@ -236,7 +236,7 @@ class RedactedAPI:
         return self.session.post(url, data=data, headers=dict(headers))
 
     def set_24bit(self, torrent):
-        url = "https://redacted.ch/torrents.php?action=edit&id=%s" % torrent['id']
+        url = "https://dicmusic.club/torrents.php?action=edit&id=%s" % torrent['id']
         response = self.session.get(url)
         forms = mechanize.ParseFile(StringIO(response.text.encode('utf-8')), url)
         form = forms[-3]
@@ -245,10 +245,10 @@ class RedactedAPI:
         return self.session.post(url, data=data, headers=dict(headers))
 
     def release_url(self, group, torrent):
-        return "https://redacted.ch/torrents.php?id=%s&torrentid=%s#torrent%s" % (group['group']['id'], torrent['id'], torrent['id'])
+        return "https://dicmusic.club/torrents.php?id=%s&torrentid=%s#torrent%s" % (group['group']['id'], torrent['id'], torrent['id'])
 
     def permalink(self, torrent):
-        return "https://redacted.ch/torrents.php?torrentid=%s" % torrent['id']
+        return "https://dicmusic.club/torrents.php?torrentid=%s" % torrent['id']
 
     def get_better(self, search_type=3, tags=None):
         if tags is None:
@@ -268,7 +268,7 @@ class RedactedAPI:
         while time.time() - self.last_request < self.rate_limit:
             time.sleep(0.1)
 
-        torrentpage = 'https://redacted.ch/torrents.php'
+        torrentpage = 'https://dicmusic.club/torrents.php'
         params = {'action': 'download', 'id': torrent_id}
         if self.authkey:
             params['authkey'] = self.authkey
