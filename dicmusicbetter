@@ -81,40 +81,40 @@ def main():
     except:
         if not os.path.exists(os.path.dirname(args.config)):
             os.makedirs(os.path.dirname(args.config))
-        config.add_section('redacted')
-        config.set('redacted', 'username', '')
-        config.set('redacted', 'password', '')
-        config.set('redacted', 'session_cookie', '')
-        config.set('redacted', 'data_dir', '')
-        config.set('redacted', 'output_dir', '')
-        config.set('redacted', 'torrent_dir', '')
-        config.set('redacted', 'formats', 'flac, v0, 320')
-        config.set('redacted', 'media', ', '.join(dicmusicapi.lossless_media))
-        config.set('redacted', '24bit_behaviour','0')
-        config.set('redacted', 'piece_length', '18')
+        config.add_section('dicmusic')
+        config.set('dicmusic', 'username', '')
+        config.set('dicmusic', 'password', '')
+        config.set('dicmusic', 'session_cookie', '')
+        config.set('dicmusic', 'data_dir', '')
+        config.set('dicmusic', 'output_dir', '')
+        config.set('dicmusic', 'torrent_dir', '')
+        config.set('dicmusic', 'formats', 'flac, v0, 320')
+        config.set('dicmusic', 'media', ', '.join(dicmusicapi.lossless_media))
+        config.set('dicmusic', '24bit_behaviour','0')
+        config.set('dicmusic', 'piece_length', '18')
         config.write(open(args.config, 'w'))
         print 'Please edit the configuration file: %s' % args.config
         sys.exit(2)
     finally:
-        username = config.get('redacted', 'username')
-        password = config.get('redacted', 'password')
+        username = config.get('dicmusic', 'username')
+        password = config.get('dicmusic', 'password')
         try:
-            session_cookie = os.path.expanduser(config.get('redacted', 'session_cookie'))
+            session_cookie = os.path.expanduser(config.get('dicmusic', 'session_cookie'))
         except ConfigParser.NoOptionError:
             session_cookie = None
-        do_24_bit = config.get('redacted', '24bit_behaviour')
-        data_dir = os.path.expanduser(config.get('redacted', 'data_dir'))
+        do_24_bit = config.get('dicmusic', '24bit_behaviour')
+        data_dir = os.path.expanduser(config.get('dicmusic', 'data_dir'))
         try:
-            output_dir = os.path.expanduser(config.get('redacted', 'output_dir'))
+            output_dir = os.path.expanduser(config.get('dicmusic', 'output_dir'))
         except ConfigParser.NoOptionError:
             output_dir = None
         if not output_dir:
             output_dir = data_dir
-        torrent_dir = os.path.expanduser(config.get('redacted', 'torrent_dir'))
-        supported_formats = [format.strip().upper() for format in config.get('redacted', 'formats').split(',')]
+        torrent_dir = os.path.expanduser(config.get('dicmusic', 'torrent_dir'))
+        supported_formats = [format.strip().upper() for format in config.get('dicmusic', 'formats').split(',')]
 
         try:
-            media_config = config.get('redacted', 'media')
+            media_config = config.get('dicmusic', 'media')
             if not media_config:
                 supported_media = dicmusicapi.lossless_media
             else:
@@ -254,7 +254,7 @@ def main():
                             print "Skipping - some file(s) in this release were incorrectly marked as 24bit."
                             break
 
-                        new_torrent = transcode.make_torrent(transcode_dir, tmpdir, api.tracker, api.passkey, config.get('redacted', 'piece_length'))
+                        new_torrent = transcode.make_torrent(transcode_dir, tmpdir, api.tracker, api.passkey, config.get('dicmusic', 'piece_length'))
 
                         if upload_torrent:
                             permalink = api.permalink(torrent)
