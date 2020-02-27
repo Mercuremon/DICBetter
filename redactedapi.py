@@ -199,7 +199,7 @@ class RedactedAPI:
         else:
             media_params = ['&media=%s' % media_search_map[m] for m in media]
 
-        url = 'https://dicmusic.club/torrents.php?type=snatched&userid=%s&format=FLAC' % self.userid
+        url = 'https://dicmusic.club/torrents.php?type=seeding&userid=%s&format=FLAC' % self.userid
         for mp in media_params:
             page = 1
             done = False
