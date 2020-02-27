@@ -143,7 +143,7 @@ def main():
         candidates = [(int(query['id']), int(query['torrentid'])) for query in\
                 [dict(urlparse.parse_qsl(urlparse.urlparse(url).query)) for url in args.release_urls]]
     else:
-        candidates = api.snatched(skip=seen, media=supported_media)
+        candidates = api.seeding(skip=seen, media=supported_media)
 
     for groupid, torrentid in candidates:
         group = api.request('torrentgroup', id=groupid)

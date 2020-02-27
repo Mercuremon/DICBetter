@@ -185,7 +185,7 @@ class RedactedAPI:
         res['torrentgroup'] = keep_releases
         return res
 
-    def snatched(self, skip=None, media=lossless_media):
+    def seeding(self, skip=None, media=lossless_media):
         if not media.issubset(lossless_media):
             raise ValueError('Unsupported media type %s' % (media - lossless_media).pop())
 
