@@ -31,9 +31,9 @@ def main():
         print "please run dicmusicbetter once"
         sys.exit(2)
 
-    username = config.get('redacted', 'username')
-    password = config.get('redacted', 'password')
-    torrent_dir = os.path.expanduser(config.get('redacted', 'torrent_dir'))
+    username = config.get('dicmusic', 'username')
+    password = config.get('dicmusic', 'password')
+    torrent_dir = os.path.expanduser(config.get('dicmusic', 'torrent_dir'))
 
     print 'Logging in to RED...'
     api = RedactedAPI(username, password)
