@@ -1,30 +1,34 @@
 ![REDBetter Logo](logo.jpg)
 
-## Introduction
+## 简介
 
-This repository contains my personal fork of the REDBetter script, originally developed for What.CD by zacharydenton and updated by Mechazawa.
+该仓库的脚本是我个人使用的DICBetter fork，最初由What.CD的zacharydenton创建并由Mechazawa以及redacted的iw00t更新。
+
 
 ---
-REDBetter is a script which searches your torrent download directory for any FLAC torrents which do not have transcodes, then automatically transcodes and uploads the torrents to redacted.ch.
+DICBetter 作为一个全自动化的脚本能够帮助你搜索你所有正在做种的FLAC格式的音乐，它能在没有MP3格式转码被上传的时候自动进行有损转码并上传种子至DICMusic
 
-## Dependencies
+## 依赖环境
 
-* Python 2.7 or newer
+* Linux or macOS
+* Python 2.7 or newer (python3 in not supported)
 * `mktorrent`
 * `mechanize`, `mutagen`, `requests` and `Unidecode` Python modules
 * `lame`, `sox` and `flac`
 
 
-## Installation Instructions
+## 安装指南
 
-#### 1. Install Python
+#### 1. 安装python
 
-Python is available [here](https://www.python.org/downloads/).
+Python 官方网站在 [这里](https://www.python.org/downloads/)
 
 
-#### 2. Install `mktorrent`
 
-`mktorrent` must be built from source, rather than installed using a package manager. For Linux systems, run the following commands in a temporary directory:
+#### 2. 安装 `mktorrent`
+
+必须使用源码安装`mktorrent` 而不能从程序管理器中安装。
+对于Linux系统，可以采取在一个临时目录采用以下命令安装
 
 ~~~~
 $> git clone git@github.com:Rudde/mktorrent.git
@@ -32,89 +36,88 @@ $> cd mktorrent
 $> make && sudo make install
 ~~~~
 
-If you are on a seedbox and you lack the privileges to install packages, you are best off contacting your seedbox provider and asking them to install the listed packages.
+如果你正在使用Seed box 并且缺少安装软件包的权限。建议你联系你的Seed box 提供商并让他帮助你安装这些软件
 
-#### 3. Install `mechanize`, `mutagen`, `requests` and `Unidecode` Python modules
+#### 3. 安装 `mechanize`, `mutagen`, `requests` , `Unidecode` Python 模块
 
-Depending on your user privileges you may need to use sudo, as shown below
-
+~~~~
+pip install -r requirements.txt
+~~~~
+如果你无法安装的话可能是你的用户权限不够，尝试使用sudo安装
 ~~~~
 sudo -H pip install -r requirements.txt
 ~~~~
 
 
-#### 4. Install `lame`, `sox` and `flac`
+#### 4. 安装 `lame`, `sox` , `flac`
 
-These should all be available on your package manager of choice:
+根据你系统的程序管理器不同，你可以尝试以下命令进行安装:
   * Debian: `sudo apt-get install lame sox flac`
   * Ubuntu: `sudo apt install lame sox flac`
   * macOS: `brew install lame sox flac`
 
 
 
-## Configuration
-Run REDBetter by running the script included when you cloned the repository:
+## 配置
+通过以下命令运行DICBetter
 
     $> ./redactedbetter
 
-You will receive a notification stating that you should edit the configuration file located at:
+当你第一次运行时，你你应该收到类似如下的消息
 
-    ~/.redactedbetter/config
+    ~Please edit the configuration file: /home/<user>/.dicmusicbetter/config
 
-Open this file in your preferred text editor, and configure as desired. The options are as follows:
-* `username`: Your redacted.ch username.
-* `password`: Your redacted.ch password.
-* `data_dir`: The directory where your torrent downloads are stored.
-* `output_dir`: The directory where the transcoded torrent files will be stored. If left blank, it will use the value of `data_dir`.
-* `torrent_dir`: The directory where the generated `.torrent` files are stored.
-* `formats`: A comma space (`, `) separated list of formats you'd like to transcode to. By default, this will be `flac, v0, 320`. `flac` is included because REDBetter supports converting 24-bit FLAC to 16-bit FLAC. Note that `v2` is not included deliberately - v0 torrents trump v2 torrents per redacted rules.
-* `media`: A comma space (`, `) separated list of media types you want to consider for transcoding. The default value is all redacted lossless formats, but if you want to transcode only CD and vinyl media, for example, you would set this to `cd, vinyl`.
-* `24bit_behaviour`: Defines what happens when the program encounters a FLAC that it thinks is 24-bit. If it is set to `2`, every FLAC that has a bit depth of 24 will be silently re-categorized. If it is set to `1`, a prompt wil appear. The default is `0` which ignores these occurrences.
+用你的文本编辑器打开上述文件，并安装你的需要修改它
+* `username`: 你的dicmusic用户名
+* `password`: Your dicmusic密码.
+* `data_dir`: 你需要进行转码的音乐的目录
+* `output_dir`: 转码后的音乐存放目录. 如果你没有填写它，默认值为 `data_dir`
+* `torrent_dir`: 生成的种子文件的存放目录.
+* `formats`: 用英文逗号 (`, `) 来分割你需要转码的目标音乐格式. 它默认包括 `flac, v0, 320`三种格式。 `flac` 被包括在内是因为dicmusic允许将24-bit FLAC转换为16-bit FLAC. 需要注意的是 `v2` 没有包含在其中因为根据dicmusic的规则 - v0 种子在任意情况下都能够trump v2 种子.
+* `media`: 用英文 (`, `) 来分割你想要转换的音乐的媒介. 默认值是所有的无损格式媒介。如果你只想转换特定的媒介格式，比如CD和vinyl，你可以设置为`cd, vinyl`.
+* `24bit_behaviour`: 该值用来定义当程序认为当前音乐FLAC属于24-bit的时候的行为. 如果他被设定为 `2`, 每一个24bit FLAC都会被重新分类并且不会有任何提示. 如果被设置为 `1`, 则将会出现提示. 默认值是 `0` ：程序会忽略掉这种情况.
 
-## Usage
+## 用法
 ~~~~
 usage: redactedbetter [-h] [-s] [-j THREADS] [--config CONFIG] [--cache CACHE]
                       [-U] [-E] [--version]
                       [release_urls [release_urls ...]]
 
 positional arguments:
-  release_urls          the URL where the release is located (default: None)
+  release_urls          指定发布的音乐的url (default: None)
 
 optional arguments:
-  -h, --help            show this help message and exit
-  -s, --single          only add one format per release (useful for getting
-                        unique groups) (default: False)
+  -h, --help            显示帮助信息
+  -s, --single          每个种子只添加一个版本的格式 (用来刷"独特分组"很有用) (default: False)
   -j THREADS, --threads THREADS
-                        number of threads to use when transcoding (default: 3)
-  --config CONFIG       the location of the configuration file (default:
+                        转码时使用的线程数 (default: 3)
+  --config CONFIG       配置文件所在目录 (default:
                         /home/taylor/.redactedbetter/config)
-  --cache CACHE         the location of the cache (default:
+  --cache CACHE         缓存文件所在目录 (default:
                         /home/taylor/.redactedbetter/cache)
-  -U, --no-upload       don't upload new torrents (in case you want to do it
-                        manually) (default: False)
-  -E, --no-24bit-edit   don't try to edit 24-bit torrents mistakenly labeled
-                        as 16-bit (default: False)
-  --version             show program's version number and exit
+  -U, --no-upload       不要自动上传种子 (如果你想手动上传的话) (default: False)
+  -E, --no-24bit-edit   不尝试编辑被错误分类为16-bit的24-bit音乐 (default: False)
+  --version             查看程序的版本信息
 ~~~~
 
-### Examples
+### 使用例子
 
-To transcode and upload everything you have in your download directory (it could take a while):
+如果你想要转码所有下载的FLAC文件 (这会耗费一些时间):
 
     $> ./redactedbetter
 
-To transcode and upload a specific release (provided you have already downloaded the FLAC and it is located in your `data_dir`):
+如果你只想转换某一个特定的FLAC音乐 (请确保该文件位于 `data_dir`所对应的目录下):
 
     $> ./redactedbetter http://redacted.ch/torrents.php?id=1000\&torrentid=1000000
 
-Note that if you specify a particular release, redactedbetter will ignore your configuration's media types and attempt to transcode the releases you have specified regardless of their media type (so long as they are lossless types).
+请注意如果你明确只转换某一特定音乐，dicmusicbetter会忽视掉你配置文件中的media选项并开始转换你输入的音乐(只要它是FLAC格式的)。
 
-REDBetter caches the results of your transcodes, and will skip any transcodes it believes it's already finished. This makes subsequent runs much faster than the first, especially with large download directories. However, if you do run into errors when running the script, sometimes you will find that the cache thinks the torrent it crashed on previously was uploaded - so it skips it. A solution would be to manually specify the release as mentioned above. If you have multiple issues like this, you can remove the cache:
+DICBetter 会缓存你已经成功转换的文件, 并且会转换跳过这些文件。这会让他以后的运行会比第一次运行更快, 尤其对于一些很大的音乐目录来说. 有时候缓存会出现一些错误，比如当你上传时程序崩溃了，而缓存却认为你已经成功上传了该文件并且跳过了此次上传，解决方法时如上文所言手动指定该文件。如果多次发生这种情况的话，你可以尝试删除缓存:
 
     $> ./redactedbetter ~/.redactedbetter/cache
 
-Beware though, this will cause the script to re-check every download as it does on the first run.
+请当心，这个操作会让程序重新检查所有的音乐文件，就像他第一次运行时那样。
 
 ## Bugs and feature requests
 
-If you have any issues using the script, or would like to suggest a feature, feel free to open an issue in the issue tracker, *provided that you have searched for similar issues already*.
+如果在使用中你发现了bug，或者想给程序新添加一些功能，请在[issues](https://github.com/MattRob1nson/REDBetter/issues)界面上报, *不过请确保你已经在Issues界面查找了没有相似错误存在*.
