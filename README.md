@@ -38,7 +38,7 @@ $> make && sudo make install
 
 如果你正在使用Seed box 并且缺少安装软件包的权限。建议你联系你的Seed box 提供商并让他帮助你安装这些软件
 
-#### 3. 安装 `mechanize`, `mutagen`, `requests` , `Unidecode` Python 模块
+#### 3. 安装 `mechanize`, `mutagen`, `requests` , `Unidecode` Python modules
 
 ~~~~
 pip install -r requirements.txt
