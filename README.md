@@ -67,7 +67,7 @@ sudo -H pip install -r requirements.txt
 
     ~Please edit the configuration file: /home/<user>/.dicmusicbetter/config
 
-用你的文本编辑器打开上述文件，并安装你的需要修改它
+用你的文本编辑器打开上述文件，并根据你的需要修改它
 * `username`: 你的dicmusic用户名
 * `password`: Your dicmusic密码.
 * `data_dir`: 你需要进行转码的音乐的目录
