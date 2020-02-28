@@ -29,7 +29,7 @@ def create_description(torrent, flac_dir, format, permalink):
         '',
         '[code]%s[/code]' % ' | '.join(cmds),
         '',
-        'Created using [url=https://github.com/scatking/DICBetter]DICBetter (scatowl fork)[/url]'
+        'Created using [url=https://dicmusic.club/forums.php?action=viewthread&threadid=1267]DICBetter (scatowl fork)[/url]'
         ''
         ]
     return description
