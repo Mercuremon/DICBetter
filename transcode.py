@@ -246,7 +246,7 @@ def path_length_exceeds_limit(flac_dir, basename):
 
 def get_suitable_basename(basename):
 	h = HTMLParser()
-	return unidecode.unidecode(h.unescape(basename).replace('\\', ',').replace('/', ',').replace(':', ',').replace('*', '').replace('?', '').replace('"', '').replace('<', '').replace('>', '').replace('|', ''))
+	return h.unescape(basename).replace('\\', ',').replace('/', ',').replace(':', ',').replace('*', '').replace('?', '').replace('"', '').replace('<', '').replace('>', '').replace('|', '').encode('utf-8')
 
 def get_transcode_dir(flac_dir, output_dir, basename, output_format, resample):
     if output_format == "FLAC":
