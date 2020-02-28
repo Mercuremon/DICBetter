@@ -2,7 +2,7 @@
 
 ## 简介
 
-该仓库的脚本是我个人使用的DICBetter fork，最初由What.CD的zacharydenton创建并由Mechazawa以及dicmusic的iw00t更新。
+该仓库的脚本是我个人使用的DICBetter fork，最初由What.CD的zacharydenton创建并由Mechazawa以及redacted的iw00t更新。
 
 
 ---
