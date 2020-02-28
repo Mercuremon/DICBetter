@@ -13,7 +13,7 @@ DICBetter 作为一个全自动化的脚本能够帮助你搜索你所有正在�
 * Linux or macOS
 * Python 2.7 or newer (python3 in not supported)
 * `mktorrent`
-* `mechanize`, `mutagen`, `requests` and `Unidecode` Python modules
+* `mechanize`, `mutagen`, `requests` and `Unidecode` Python 模块
 * `lame`, `sox` and `flac`
 
 
@@ -36,9 +36,9 @@ $> cd mktorrent
 $> make && sudo make install
 ~~~~
 
-如果你正在使用Seed box 并且缺少安装软件包的权限。建议你联系你的Seed box 提供商并让他帮助你安装这些软件
+如果你正在使用Seedbox 并且缺少安装软件包的权限。建议你联系你的Seedbox 提供商并让他帮助你安装这些软件
 
-#### 3. 安装 `mechanize`, `mutagen`, `requests` , `Unidecode` Python modules
+#### 3. 安装 `mechanize`, `mutagen`, `requests` , `Unidecode` Python 模块
 
 ~~~~
 pip install -r requirements.txt
@@ -63,7 +63,7 @@ sudo -H pip install -r requirements.txt
 
     $> ./redactedbetter
 
-当你第一次运行时，你你应该收到类似如下的消息
+当你第一次运行时，你应该会收到类似如下的消息
 
     ~Please edit the configuration file: /home/<user>/.dicmusicbetter/config
 
@@ -74,8 +74,8 @@ sudo -H pip install -r requirements.txt
 * `output_dir`: 转码后的音乐存放目录. 如果你没有填写它，默认值为 `data_dir`
 * `torrent_dir`: 生成的种子文件的存放目录.
 * `formats`: 用英文逗号 (`, `) 来分割你需要转码的目标音乐格式. 它默认包括 `flac, v0, 320`三种格式。 `flac` 被包括在内是因为dicmusic允许将24-bit FLAC转换为16-bit FLAC. 需要注意的是 `v2` 没有包含在其中因为根据dicmusic的规则 - v0 种子在任意情况下都能够trump v2 种子.
-* `media`: 用英文 (`, `) 来分割你想要转换的音乐的媒介. 默认值是所有的无损格式媒介。如果你只想转换特定的媒介格式，比如CD和vinyl，你可以设置为`cd, vinyl`.
-* `24bit_behaviour`: 该值用来定义当程序认为当前音乐FLAC属于24-bit的时候的行为. 如果他被设定为 `2`, 每一个24bit FLAC都会被重新分类并且不会有任何提示. 如果被设置为 `1`, 则将会出现提示. 默认值是 `0` ：程序会忽略掉这种情况.
+* `media`: 用英文逗号 (`, `) 来分割你想要转换的音乐的媒介. 默认值是所有的无损格式媒介。如果你只想转换特定的媒介格式，比如CD和vinyl，你可以设置为`cd, vinyl`.
+* `24bit_behaviour`: 该值用来定义当程序认为当前音乐FLAC属于24-bit却被错误分类为16-bit的时候的行为. 如果他被设定为 `2`, 每一个24bit FLAC都会被重新分类并且不会有任何提示. 如果被设置为 `1`, 则将会出现提示. 默认值是 `0` ：程序会忽略掉这种情况.
 
 ## 用法
 ~~~~
@@ -102,7 +102,7 @@ optional arguments:
 
 ### 使用例子
 
-如果你想要转码所有下载的FLAC文件 (这会耗费一些时间):
+如果你想要转码所有`data_dir`目录的FLAC文件 (这会耗费一些时间):
 
     $> ./redactedbetter
 
@@ -118,6 +118,6 @@ DICBetter 会缓存你已经成功转换的文件, 并且会转换跳过这些�
 
 请当心，这个操作会让程序重新检查所有的音乐文件，就像他第一次运行时那样。
 
-## Bugs and feature requests
+## Bugs 报告和新功能请求
 
 如果在使用中你发现了bug，或者想给程序新添加一些功能，请在[issues](https://github.com/MattRob1nson/REDBetter/issues)界面上报, *不过请确保你已经在Issues界面查找了没有相似错误存在*.
