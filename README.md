@@ -2,7 +2,7 @@
 
 ## 简介
 
-该仓库的脚本是我个人使用的DICBetter fork，最初由What.CD的zacharydenton创建并由Mechazawa以及redacted的iw00t更新。
+该仓库的脚本是我个人使用的DICBetter fork，最初由What.CD的zacharydenton创建并由Mechazawa以及dicmusic的iw00t更新。
 
 
 ---
@@ -61,7 +61,7 @@ sudo -H pip install -r requirements.txt
 ## 配置
 在DICBetter目录通过以下命令运行DICBetter
 
-    $> ./redactedbetter
+    $> ./dicmusicbetter
 
 当你第一次运行时，你应该会收到类似如下的消息
 
@@ -80,7 +80,7 @@ sudo -H pip install -r requirements.txt
 
 ## 用法
 ~~~~
-usage: redactedbetter [-h] [-s] [-j THREADS] [--config CONFIG] [--cache CACHE]
+usage: dicmusicbetter [-h] [-s] [-j THREADS] [--config CONFIG] [--cache CACHE]
                       [-U] [-E] [--version]
                       [release_urls [release_urls ...]]
 
@@ -93,9 +93,9 @@ optional arguments:
   -j THREADS, --threads THREADS
                         转码时使用的线程数 (default: 3)
   --config CONFIG       配置文件所在目录 (default:
-                        /home/taylor/.redactedbetter/config)
+                        /home/taylor/.dicmusicbetter/config)
   --cache CACHE         缓存文件所在目录 (default:
-                        /home/taylor/.redactedbetter/cache)
+                        /home/taylor/.dicmusicbetter/cache)
   -U, --no-upload       不要自动上传种子 (如果你想手动上传的话) (default: False)
   -E, --no-24bit-edit   不尝试编辑被错误分类为16-bit的24-bit音乐 (default: False)
   --version             查看程序的版本信息
@@ -105,17 +105,17 @@ optional arguments:
 
 如果你想要转码所有`data_dir`目录的FLAC文件 (这会耗费一些时间):
 
-    $> ./redactedbetter
+    $> ./dicmusicbetter
 
 如果你只想转换某一个特定的FLAC音乐 (请确保该文件位于 `data_dir`所对应的目录下):
 
-    $> ./redactedbetter http://redacted.ch/torrents.php?id=1000\&torrentid=1000000
+    $> ./dicmusicbetter http://dicmusic.club/torrents.php?id=1000\&torrentid=1000000
 
 请注意如果你明确只转换某一特定音乐，dicmusicbetter会忽视掉你配置文件中的media选项并开始转换你输入的音乐(只要它是FLAC格式的)。
 
 DICBetter 会缓存你已经成功转换的文件, 并且会转换跳过这些文件。这会让他以后的运行会比第一次运行更快, 尤其对于一些很大的音乐目录来说. 有时候缓存会出现一些错误，比如当你上传时程序崩溃了，而缓存却认为你已经成功上传了该文件并且跳过了此次上传，解决方法时如上文所言手动指定该文件。如果多次发生这种情况的话，你可以尝试删除缓存:
 
-    $> ./redactedbetter ~/.redactedbetter/cache
+    $> ./dicmusicbetter ~/.dicmusicbetter/cache
 
 请当心，这个操作会让程序重新检查所有的音乐文件，就像他第一次运行时那样。
 
