@@ -245,9 +245,9 @@ def main():
                     tmpdir = tempfile.mkdtemp()
                     try:
                         if len(torrent['remasterTitle']) >= 1:
-                            basename = artist + " - " + group['group']['name'] + " (" + torrent['remasterTitle'] + ") " + "[" + year + "] (" + torrent['media'] + " - "
+                            basename = artist + " - " + group['group']['name'] + " (" + torrent['remasterTitle'] + ") " + "(" + year + ") - " + torrent['media'] + " "
                         else:
-                            basename = artist + " - " + group['group']['name'] + " [" + year + "] (" + torrent['media'] + " - "
+                            basename = artist + " - " + group['group']['name'] + " (" + year + ") - " + torrent['media'] + " "
 
                         transcode_dir = transcode.transcode_release(flac_dir, output_dir, basename, format, max_threads=args.threads)
                         if transcode_dir == False:
