@@ -17,7 +17,7 @@ else:
 
 setup(
     name = "dicmusicbetter",
-    description = "Automatically transcode and upload FLACs on redacted.ch.",
+    description = "Automatically transcode and upload FLACs on dicmusic.club.",
     version = verstr,
     url = 'https://github.com/Mechazawa/pthbetter-crawler',
     py_modules = [
