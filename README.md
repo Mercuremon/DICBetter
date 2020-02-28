@@ -93,9 +93,9 @@ optional arguments:
   -j THREADS, --threads THREADS
                         转码时使用的线程数 (default: 3)
   --config CONFIG       配置文件所在目录 (default:
-                        /home/taylor/.dicmusicbetter/config)
+                        /home/<user>/.dicmusicbetter/config)
   --cache CACHE         缓存文件所在目录 (default:
-                        /home/taylor/.dicmusicbetter/cache)
+                        /home/<user>/.dicmusicbetter/cache)
   -U, --no-upload       不要自动上传种子 (如果你想手动上传的话) (default: False)
   -E, --no-24bit-edit   不尝试编辑被错误分类为16-bit的24-bit音乐 (default: False)
   --version             查看程序的版本信息
