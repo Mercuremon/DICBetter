@@ -59,7 +59,7 @@ sudo -H pip install -r requirements.txt
 
 
 ## 配置
-通过以下命令运行DICBetter
+在DICBetter目录通过以下命令运行DICBetter
 
     $> ./redactedbetter
 
