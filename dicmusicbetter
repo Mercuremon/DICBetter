@@ -129,7 +129,7 @@ def main():
     upload_torrent = not args.no_upload
 
     print 'Logging in to DIC...'
-    api = dicmusicapi.RedactedAPI(username, password, session_cookie)
+    api = dicmusicapi.DicmusicAPI(username, password, session_cookie)
 
     try:
         seen = pickle.load(open(args.cache))

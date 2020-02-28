@@ -6,7 +6,7 @@ import ConfigParser
 import json
 import argparse
 
-from dicmusicapi import RedactedAPI
+from dicmusicapi import DicmusicAPI
 
 
 def main():
@@ -36,7 +36,7 @@ def main():
     torrent_dir = os.path.expanduser(config.get('dicmusic', 'torrent_dir'))
 
     print 'Logging in to RED...'
-    api = RedactedAPI(username, password)
+    api = DicmusicAPI(username, password)
 
     try:
         cache = json.load(open(args.cache))

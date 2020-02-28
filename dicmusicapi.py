@@ -64,7 +64,7 @@ class LoginException(Exception):
 class RequestException(Exception):
     pass
 
-class RedactedAPI:
+class DicmusicAPI:
     def __init__(self, username=None, password=None, session_cookie=None):
         self.session = requests.Session()
         self.session.headers.update(headers)
