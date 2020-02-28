@@ -69,10 +69,11 @@ sudo -H pip install -r requirements.txt
 
 用你的文本编辑器打开上述文件，并根据你的需要修改它
 * `username`: 你的dicmusic用户名
-* `password`: Your dicmusic密码.
+* `password`: 你的dicmusic密码
+* `session_cookie`: 你在dicmusic的cookie里面的session字段
 * `data_dir`: 你需要进行转码的音乐的目录
-* `output_dir`: 转码后的音乐存放目录. 如果你没有填写它，默认值为 `data_dir`
-* `torrent_dir`: 生成的种子文件的存放目录.
+* `output_dir`: 转码后的音乐存放目录，如果你没有填写它，默认值为 `data_dir`
+* `torrent_dir`: 生成的种子文件的存放目录
 * `formats`: 用英文逗号 (`, `) 来分割你需要转码的目标音乐格式. 它默认包括 `flac, v0, 320`三种格式。 `flac` 被包括在内是因为dicmusic允许将24-bit FLAC转换为16-bit FLAC. 需要注意的是 `v2` 没有包含在其中因为根据dicmusic的规则 - v0 种子在任意情况下都能够trump v2 种子.
 * `media`: 用英文逗号 (`, `) 来分割你想要转换的音乐的媒介. 默认值是所有的无损格式媒介。如果你只想转换特定的媒介格式，比如CD和vinyl，你可以设置为`cd, vinyl`.
 * `24bit_behaviour`: 该值用来定义当程序认为当前音乐FLAC属于24-bit却被错误分类为16-bit的时候的行为. 如果他被设定为 `2`, 每一个24bit FLAC都会被重新分类并且不会有任何提示. 如果被设置为 `1`, 则将会出现提示. 默认值是 `0` ：程序会忽略掉这种情况.
