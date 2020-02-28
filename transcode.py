@@ -250,12 +250,11 @@ def get_suitable_basename(basename):
 
 def get_transcode_dir(flac_dir, output_dir, basename, output_format, resample):
     if output_format == "FLAC":
-        basename += "FLAC - Lossless"
+        basename += "FLAC Lossless"
     elif output_format == "V0":
-        basename += "MP3 - V0"
+        basename += "MP3 V0"
     elif output_format == "320":
-        basename += "MP3 - 320"
-    basename += ")"
+        basename += "MP3 320"
 
     basename = get_suitable_basename(basename)
     
